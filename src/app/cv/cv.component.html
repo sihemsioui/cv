@@ -1,0 +1,110 @@
+<div class="container">
+  
+  <hr>  
+  <div class="card">
+    <div class="card-body">
+
+        <form [formGroup]="myForm" (ngSubmit)="submit()">
+
+          Value: {{ myForm.value| json }}
+          <br>
+          <hr>
+          <p>Informations personnelles </p>
+              <table>
+                <tr>
+                    <td>
+                    <mat-form-field class="full">
+                        <input matInput placeholder="nom" formControlName="nom">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="full">
+                        <input matInput placeholder="prenom" formControlName="prenom">
+                    </mat-form-field>
+                </td>
+                </tr>
+              <tr>
+                <td>
+                <mat-form-field class="full">
+                    <input matInput placeholder="email" formControlName="email">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="full">
+                    <input matInput placeholder="age" formControlName="age">
+                </mat-form-field>
+            </td>
+            </tr>
+              </table>
+              <p>Experience </p>
+                <div formArrayName="experience" class="skills">
+
+                    <div *ngFor="let exper of expsForms.controls; let i=index" [formGroupName]="i">
+
+
+                        
+
+                        <mat-form-field class="xs">
+                            <input matInput placeholder="poste" formControlName="exp">
+                        </mat-form-field>
+
+                      <mat-form-field>
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [matDatepicker]="picker" placeholder="date debut" formControlName='date1' >
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                          </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-label>Choose a date</mat-label>
+                            <input matInput [matDatepicker]="picker1" placeholder="date fin" formControlName='date2'>
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                          </mat-form-field>
+                        
+                        <button mat-mini-fab color="warn" (click)="deleteExp(i)"><mat-icon>clear</mat-icon></button>
+
+                    </div>
+
+                </div>
+
+                <button mat-mini-fab color="primary" (click)="addExp()"><mat-icon>add</mat-icon></button>
+                <p>Competences </p>
+
+                <div class="skills" formArrayName="skills">
+                    <mat-chip-list #chipList aria-label="Langage selection">
+                        <mat-chip
+                          *ngFor="let langage of langages"
+                          [selectable]="selectable"
+                          [removable]="removable"
+                          (removed)="remove(langage)">
+                          {{langage}}
+                          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                        </mat-chip>
+                        <input
+                          placeholder="New .."
+                          #langageInput
+                          [formControl]="langageCtrl"
+                          [matAutocomplete]="auto"
+                          [matChipInputFor]="chipList"
+                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          (matChipInputTokenEnd)="add($event)"
+                          [formControlName]="langageInput">
+                      </mat-chip-list>
+                      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                        <mat-option *ngFor="let langage of filteredLangages | async" [value]="langage">
+                          {{langage}}
+
+                        </mat-option>
+                      </mat-autocomplete>
+
+                    </div>
+                    <div class="button-wrapper">
+                      <button type="submit" mat-flat-button class="btn btn-primary">Submit</button>
+                    </div>
+      </form>
+
+
+</div>
+</div>
+</div>

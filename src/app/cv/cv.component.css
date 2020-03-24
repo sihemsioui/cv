@@ -1,0 +1,24 @@
+.skills{
+    margin-top: 5%;
+    width: 100%;
+    margin-bottom: 25px;
+}
+table{
+    width: 90%;
+}
+td{
+    width: 45%;
+}
+
+p{
+    font-size: 36px;
+    margin: 5% 0;
+}
+.submit{
+    margin-top: 2%;
+    margin-right: 40%;
+    float: right;
+}
+mat-form-field{
+    margin-right: 20px;
+}
